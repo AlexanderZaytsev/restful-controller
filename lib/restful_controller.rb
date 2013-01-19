@@ -1,4 +1,4 @@
-require 'action_controller/base'
+require 'restful_controller/action_controller/base'
 
 require 'restful_controller/base'
 require 'restful_controller/filters'
