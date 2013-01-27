@@ -15,8 +15,10 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = RestfulController::VERSION
 
-  gem.add_development_dependency 'rspec'
   gem.add_development_dependency 'rake'
+  gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'rspec-rails'
   gem.add_development_dependency 'pry'
-  gem.add_development_dependency 'actionpack'
+  gem.add_development_dependency 'actionpack', '~> 3.1'
+  gem.add_development_dependency 'activesupport', '~> 3.1'
 end

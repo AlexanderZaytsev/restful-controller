@@ -1,3 +1,4 @@
+require 'rails/all'
 require 'restful_controller/action_controller/base'
 
 require 'restful_controller/base'
