@@ -5,7 +5,8 @@ module RestfulController
         model = self.class.model_class.build(model_params)
         instance_variable_set("@#{self.class.model_name}", model)
         if model.save
-          redirect_to model, notice: "#{model.name} was successfully created."
+          # binding.pry
+          redirect_to model, notice: "#{self.class.model_name} was successfully created."
         else
           render action: 'new'
         end

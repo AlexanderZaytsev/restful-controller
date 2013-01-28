@@ -1,7 +1,13 @@
 class Post
+  extend ActiveModel::Naming
+  include ActiveModel::Conversion
   attr_accessor :id
 
-  def initialize
-    @id = 1
+  def initialize(attributes={})
+    self.id = attributes
+  end
+
+  def persisted?
+    true
   end
 end

@@ -21,4 +21,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'pry'
   gem.add_development_dependency 'actionpack', '~> 3.1'
   gem.add_development_dependency 'activesupport', '~> 3.1'
+  gem.add_development_dependency 'activerecord', '~> 3.1'
 end
