@@ -32,13 +32,17 @@ describe PostsController, type: :controller do
   end
 
   describe '#update' do
+    def update
+      put :update, id: @post.id, post: @post_params
+    end
+
     before do
       Post.stub(:find).with(@post.id.to_s).and_return(@post)
       @post.stub(:update_attributes).and_return(true)
     end
 
     it 'has @post' do
-      put :update, id: @post.id, post: @post_params
+      update
 
       assigns(:post).should eq(@post)
     end
@@ -46,14 +50,14 @@ describe PostsController, type: :controller do
     it 'updates @post' do
       @post.should_receive(:update_attributes).with(@post_params)
 
-      put :update, id: @post.id, post: @post_params
+      update
     end
 
     context 'when update is great success' do
       it 'redirects to model_url' do
         @post.stub(:update_attributes).and_return(true)
 
-        put :update, id: @post.id, post: @post_params
+        update
 
         response.should redirect_to("/posts/#{@post.id}")
       end
@@ -66,7 +70,7 @@ describe PostsController, type: :controller do
 
         PostsController.any_instance.should_receive(:render).with({action: 'edit'})
 
-        put :update, id: @post.id, post: @post_params
+        update
       end
     end
   end
@@ -82,13 +86,17 @@ describe PostsController, type: :controller do
   end
 
   describe '#destroy' do
+    def destroy
+      delete :destroy, id: @post.id
+    end
+
     before do
       Post.stub(:find).with(@post.id.to_s).and_return(@post)
       @post.stub(:destroy)
     end
 
     it 'has @post' do
-      delete :destroy, id: @post.id
+      destroy
 
       assigns(:post).should eq(@post)
     end
@@ -96,24 +104,28 @@ describe PostsController, type: :controller do
     it 'destroys @post' do
       @post.should_receive(:destroy)
 
-      delete :destroy, id: @post.id
+      destroy
     end
 
     it 'redirects to models_url' do
-      delete :destroy, id: @post.id
+      destroy
 
       response.should redirect_to('/posts')
     end
   end
 
   describe '#create' do
+    def create
+      post :create, {id: @post.id, post: @post_params }
+    end
+
     before do
       Post.stub(:build).and_return(@post)
       @post.stub(:save).and_return(true)
     end
 
     it 'has @post' do
-      post :create, {id: @post.id, post: @post_params }
+      create
 
       assigns(:post).should eq(@post)
     end
@@ -121,18 +133,18 @@ describe PostsController, type: :controller do
     it 'builds @post' do
       Post.should_receive(:build).with(@post_params).and_return(@post)
 
-      post :create, {id: @post.id, post: @post_params }
+      create
     end
 
     it 'saves @post' do
       @post.should_receive(:save).once
 
-      post :create, {id: @post.id, post: @post_params }
+      create
     end
 
     context 'when save is great success' do
       it 'redirects to model_url' do
-        post :create, {id: @post.id, post: @post_params }
+        create
 
         response.should redirect_to("/posts/#{@post.id}")
       end
@@ -145,18 +157,22 @@ describe PostsController, type: :controller do
 
         PostsController.any_instance.should_receive(:render).with({action: 'new'})
 
-        post :create, {id: @post.id, post: @post_params }
+        create
       end
     end
   end
 
   describe '#new' do
+    def new
+      get :new, id: @post.id
+    end
+
     before do
       Post.stub(:build).and_return(@post)
     end
 
     it 'has @post' do
-      get :new, id: @post.id
+      new
 
       assigns(:post).should eq(@post)
     end
@@ -164,7 +180,7 @@ describe PostsController, type: :controller do
     it 'builds @post' do
       Post.should_receive(:build).and_return(@post)
 
-      get :new, id: @post.id
+      new
     end
   end
 end
