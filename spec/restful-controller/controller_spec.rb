@@ -116,11 +116,11 @@ describe PostsController, type: :controller do
 
   describe '#create' do
     def create
-      post :create, {id: @post.id, post: @post_params }
+      post :create, { id: @post.id, post: @post_params, format: :json }
     end
 
     before do
-      Post.stub(:build).and_return(@post)
+      Post.stub(:new).and_return(@post)
       @post.stub(:save).and_return(true)
     end
 
@@ -131,7 +131,7 @@ describe PostsController, type: :controller do
     end
 
     it 'builds @post' do
-      Post.should_receive(:build).with(@post_params).and_return(@post)
+      Post.should_receive(:new).with(@post_params).and_return(@post)
 
       create
     end
@@ -145,8 +145,8 @@ describe PostsController, type: :controller do
     context 'when save is great success' do
       it 'redirects to model_url' do
         create
-
-        response.should redirect_to("/posts/#{@post.id}")
+        PostsController.any_instance.should_receive(:redirect_to).with("/posts/#{@post.id}")
+        # response.should redirect_to()
       end
     end
 

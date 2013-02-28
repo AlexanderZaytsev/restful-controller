@@ -5,6 +5,7 @@ module RestfulController
     def self.inject(base, actions = [])
       actions_to_include = actions_to_include(actions)
       base.class_eval do
+        respond_to :html
         include Helpers
         include Filters
         actions_to_include.each do |action|
